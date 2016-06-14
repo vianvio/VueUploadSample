@@ -6,17 +6,17 @@ export const setLoginFlag = ({ dispatch }, flag) => {
 }
 
 export const loginAction = ({ dispatch, router }, loginObj) => {
-  dispatch(types.SET_LOGIN_LOADING_FLAG, true)
+  dispatch(types.CONTROL_LOADING, 'login', 'showLoading', true)
     // loginObj.pwd = window.btoa(loginObj.pwd)
   Vue.http.post('/api/userModels/login', loginObj).then(function(resp) {
-    dispatch(types.SET_LOGIN_LOADING_FLAG, false)
+    dispatch(types.CONTROL_LOADING, 'login', 'showLoading', false)
     sessionStorage.clear();
     sessionStorage.setItem('token', resp.data.id);
     sessionStorage.setItem('userId', resp.data.userId);
     sessionStorage.setItem('userName', resp.data.userName);
     router.go('/upload')
   }, function(err) {
-    dispatch(types.SET_LOGIN_LOADING_FLAG, false)
+    dispatch(types.CONTROL_LOADING, 'login', 'showLoading', false)
   })
 }
 
@@ -29,7 +29,7 @@ export const updateUploadList = ({ dispatch }, fileInfoObject) => {
 }
 
 export const uploadFile = ({ dispatch }, { datafile }, { recordId, type }) => {
-  dispatch(types.SET_UPLOAD_LOADING_FLAG, true)
+  dispatch(types.CONTROL_LOADING, 'upload', 'showLoading', true)
 
   // create form data
   let formData = new FormData()
@@ -54,11 +54,11 @@ export const uploadFile = ({ dispatch }, { datafile }, { recordId, type }) => {
     }
   }).then(function(res) {
     Vue.http.headers.common['Content-Type'] = 'application/json'
-    dispatch(types.SET_UPLOAD_LOADING_FLAG, false)
+    dispatch(types.CONTROL_LOADING, 'upload', 'showLoading', false)
     dispatch(types.SET_RESULT_MESSAGE, 'successMessage', 'Success')
   }, function(err) {
     Vue.http.headers.common['Content-Type'] = 'application/json'
-    dispatch(types.SET_UPLOAD_LOADING_FLAG, false)
+    dispatch(types.CONTROL_LOADING, 'upload', 'showLoading', false)
     dispatch(types.SET_UPLOAD_PROGRESS, 0)
     dispatch(types.SET_RESULT_MESSAGE, 'errorMessage', err.data.error.message)
   })

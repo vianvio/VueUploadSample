@@ -1,6 +1,4 @@
-import {
-  SET_LOGIN_LOADING_FLAG
-} from '../mutation-types'
+import {} from '../mutation-types'
 
 // initial state
 const state = {
@@ -8,9 +6,7 @@ const state = {
 }
 
 // mutations
-const mutations = {
-  [SET_LOGIN_LOADING_FLAG] (state, flag) { state.showLoading = flag }
-}
+const mutations = {}
 
 export default {
   state,

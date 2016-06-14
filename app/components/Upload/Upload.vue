@@ -6,17 +6,17 @@
 				<label for='recordId'>Record Id</label>
 				<input type='text' id='recordId' class='form-control' v-model='uploadForm.recordId' />
 			</div>
-			<!-- <div class='form-group'>
+			<div class='form-group'>
 				<label for='type'>Type</label>
 				<v-select class='form-select' id='type' :value.sync='uploadForm.type'>
 					<v-option value='Type 1'>Type 1</v-option>
 				</v-select>
-			</div> -->
+			</div>
 		</div>
 		<div class='col-xs-6'>
 			<input type='file' id='dataUploader' class='data-file-uploader' accept='*' @change='uploaderChange' />
 			<button class='upload-btn' @click='upload()' v-show='uploadForm.file'>
-				<div class="cssload-ball btn-loader" v-if="showLoading"></div>
+				<div class="cssload-ball cssload-ball-small" v-if="showLoading"></div>
 				UPLOAD
 	        </button>
 			<hr v-show='uploadForm.file' />
@@ -46,7 +46,7 @@
 
 <script>
 import { updateUploadList, uploadFile, initUpload } from '../../vuex/action.js'
-// import {select as vSelect, option as vOption, progressbar, alert} from 'vue-strap'
+import {select as vSelect, option as vOption, progressbar, alert} from 'vue-strap'
 
 export default {
 	vuex:{
@@ -64,10 +64,10 @@ export default {
       }
     },
 	components: {
-		// vSelect,
-		// vOption,
-		// progressbar,
-		// alert
+		vSelect,
+		vOption,
+		progressbar,
+		alert
 	},
 	data() {
 	  return {
@@ -137,7 +137,7 @@ export default {
 		margin-right: 1rem;
 		&:after{
 			content: 'Browse Data';
-			@include blog-btn('false');
+			@extend %btn;
 			background-color: $light-coffee;
 			color: #fff;
 			visibility: visible;
@@ -179,7 +179,7 @@ export default {
 	}
 	
 	.upload-btn {
-		@include blog-btn('true');
+		@extend %btn;
 		background-color: $basic-blue;
 		color: #fff;
 		position: relative;
